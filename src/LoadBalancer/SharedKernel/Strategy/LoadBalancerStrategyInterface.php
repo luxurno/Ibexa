@@ -9,5 +9,5 @@ use Symfony\Component\HttpFoundation\Request;
 interface LoadBalancerStrategyInterface
 {
     public function isValid(string $algorithm): bool;
-    public function handle(Request $request, array $hosts, string $algorithm): void;
+    public function handle(Request $request, array $loadBalancers, string $algorithm): void;
 }

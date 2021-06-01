@@ -18,20 +18,20 @@ class SecondAlgoStrategyTest extends TestCase
     {
         $request = $this->createMock(Request::class);
 
-        $hostOne = $this->createMock(LoadBalancer::class);
-        $hostTwo = $this->createMock(LoadBalancer::class);
+        $loadBalancerOne = $this->createMock(LoadBalancer::class);
+        $loadBalancerTwo = $this->createMock(LoadBalancer::class);
 
-        $hostOne->method('getLoad')
+        $loadBalancerOne->method('getLoad')
             ->willReturn(0.8);
 
-        $hostTwo->method('getLoad')
+        $loadBalancerTwo->method('getLoad')
             ->willReturn(0.9);
 
-        $hostOne->expects(self::once())
+        $loadBalancerOne->expects(self::once())
             ->method('handleRequest')
             ->with(...[$request]);
 
-        $hosts = [$hostOne, $hostTwo];
+        $hosts = [$loadBalancerOne, $loadBalancerTwo];
 
         $strategy = new SecondAlgoStrategy();
 
@@ -42,20 +42,20 @@ class SecondAlgoStrategyTest extends TestCase
     {
         $request = $this->createMock(Request::class);
 
-        $hostOne = $this->createMock(LoadBalancer::class);
-        $hostTwo = $this->createMock(LoadBalancer::class);
+        $loadBalancerOne = $this->createMock(LoadBalancer::class);
+        $loadBalancerTwo = $this->createMock(LoadBalancer::class);
 
-        $hostOne->method('getLoad')
+        $loadBalancerOne->method('getLoad')
             ->willReturn(0.8);
 
-        $hostTwo->method('getLoad')
+        $loadBalancerTwo->method('getLoad')
             ->willReturn(0.7);
 
-        $hostTwo->expects(self::once())
+        $loadBalancerTwo->expects(self::once())
             ->method('handleRequest')
             ->with(...[$request]);
 
-        $hosts = [$hostOne, $hostTwo];
+        $hosts = [$loadBalancerOne, $loadBalancerTwo];
 
         $strategy = new SecondAlgoStrategy();
 

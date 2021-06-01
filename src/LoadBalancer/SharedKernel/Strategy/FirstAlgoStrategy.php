@@ -17,13 +17,13 @@ class FirstAlgoStrategy implements LoadBalancerStrategyInterface
 
     public function handle(
         Request $request,
-        array $hosts,
+        array $loadBalancers,
         string $algorithm
     ): void
     {
-        /** @var LoadBalancer $host */
-        foreach ($hosts as $host) {
-            $host->handleRequest($request);
+        /** @var LoadBalancer $loadBalancer */
+        foreach ($loadBalancers as $loadBalancer) {
+            $loadBalancer->handleRequest($request);
         }
 
     }

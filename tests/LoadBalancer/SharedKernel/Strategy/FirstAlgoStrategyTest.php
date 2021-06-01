@@ -18,21 +18,21 @@ class FirstAlgoStrategyTest extends TestCase
     {
         $request = $this->createMock(Request::class);
 
-        $hostOne = $this->createMock(LoadBalancer::class);
-        $hostTwo = $this->createMock(LoadBalancer::class);
+        $loadBalancerOne = $this->createMock(LoadBalancer::class);
+        $loadBalancerTwo = $this->createMock(LoadBalancer::class);
 
-        $hostOne->expects(self::once())
+        $loadBalancerOne->expects(self::once())
             ->method('handleRequest')
             ->with(...[$request]);
 
-        $hostTwo->expects(self::once())
+        $loadBalancerTwo->expects(self::once())
             ->method('handleRequest')
             ->with(...[$request]);
 
-        $hosts = [$hostOne, $hostTwo];
+        $loadBalancers = [$loadBalancerOne, $loadBalancerTwo];
 
         $strategy = new FirstAlgoStrategy();
 
-        $strategy->handle($request, $hosts, self::ALGORITHM);
+        $strategy->handle($request, $loadBalancers, self::ALGORITHM);
     }
 }

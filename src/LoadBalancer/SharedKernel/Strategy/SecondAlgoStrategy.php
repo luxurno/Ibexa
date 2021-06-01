@@ -17,30 +17,30 @@ class SecondAlgoStrategy implements LoadBalancerStrategyInterface
         return $algorithm === LoadBalancerEnum::SECOND_ALGO;
     }
 
-    public function handle(Request $request, array $hosts, string $algorithm): void
+    public function handle(Request $request, array $loadBalancers, string $algorithm): void
     {
         $overload = true;
-        /** @var LoadBalancer $host */
-        foreach ($hosts as $host) {
-            if (self::SCORE > $host->getLoad()) {
+        /** @var LoadBalancer $loadBalancer */
+        foreach ($loadBalancers as $loadBalancer) {
+            if (self::SCORE > $loadBalancer->getLoad()) {
                 $overload = false;
             }
             if (false === $overload) {
-                $host->handleRequest($request);
+                $loadBalancer->handleRequest($request);
             }
         }
 
         if ($overload) {
-            /** @var LoadBalancer $host */
-            $lowestHost = null;
-            foreach ($hosts as $host) {
-                if (null === $lowestHost) {
-                    $lowestHost = $host;
-                } else if ($lowestHost->getLoad() > $host->getLoad()) {
-                    $lowestHost = $host;
+            /** @var LoadBalancer $loadBalancer */
+            $lowestLoadBalancer = null;
+            foreach ($loadBalancers as $loadBalancer) {
+                if (null === $lowestLoadBalancer) {
+                    $lowestLoadBalancer = $loadBalancer;
+                } else if ($lowestLoadBalancer->getLoad() > $loadBalancer->getLoad()) {
+                    $lowestLoadBalancer = $loadBalancer;
                 }
             }
-            $lowestHost->handleRequest($request);
+            $lowestLoadBalancer->handleRequest($request);
         }
     }
 }
